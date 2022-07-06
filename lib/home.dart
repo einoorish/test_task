@@ -1,32 +1,25 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:flutter/material.dart';
 
-void main() => runApp(const Home());
+void main() => runApp(_Home());
 
-class Home extends StatefulWidget{
-  const Home({Key? key}) : super(key: key);
-
+class _Home extends StatefulWidget{
   @override
-  HomeState createState() => HomeState();
+  _HomeState createState() => _HomeState();
 }
 
-class HomeState extends State<Home> {
+class _HomeState extends State<_Home> {
   Color currentColor = Colors.white;
-
 
   @override
   Widget build(BuildContext context) {
     const String text = "Hey there";
+    const double fontSize = 40;
 
     final Paint textBorderPaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3
       ..color = Colors.black45;
-
-    const textStyle = TextStyle(
-        fontSize: 40,
-        color: Colors.white
-    );
 
     return MaterialApp(
         home: Scaffold(
@@ -45,32 +38,39 @@ class HomeState extends State<Home> {
                       children: <Widget>[
                         Text(
                           text,
-                          style: textStyle.copyWith(foreground: textBorderPaint),
+                          style: TextStyle(
+                            fontSize: fontSize,
+                            color: Colors.white,
+                              foreground: textBorderPaint,
+                          ),
                         ),
-                        Text(
+                        const Text(
                           text,
-                          style: textStyle
+                          style: TextStyle(
+                            fontSize: fontSize,
+                            color: Colors.white,
+                          ),
                         ),
                       ],
-                    )
+                    ),
                 ),
               ),
-            )
-        )
+            ),
+        ),
     );
   }
 
   Color getRandomColor() {
     const opacity = 1.0;
-    Random random = Random();
+    const maxChannelValue = 255;
+    final Random random = Random();
 
     return Color.fromRGBO(
-        random.nextInt(255),
-        random.nextInt(255),
-        random.nextInt(255),
-        opacity
+        random.nextInt(maxChannelValue),
+        random.nextInt(maxChannelValue),
+        random.nextInt(maxChannelValue),
+        opacity,
     );
   }
 
 }
-
