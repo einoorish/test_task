@@ -11,22 +11,50 @@ class Home extends StatefulWidget{
 }
 
 class HomeState extends State<Home> {
-  Color bgColor = Colors.white;
+  Color currentColor = Colors.white;
+
 
   @override
   Widget build(BuildContext context) {
+    const String text = "Hey there";
+
+    final Paint textBorderPaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3
+      ..color = Colors.black45;
+
+    const textStyle = TextStyle(
+        fontSize: 40,
+        color: Colors.white
+    );
+
     return MaterialApp(
         home: Scaffold(
             body: GestureDetector(
               onTap: () {
                 setState((){
-                  bgColor = getRandomColor();
+                  currentColor = getRandomColor();
                 });
               },
-              child: Container(
-                color: bgColor,
-                child: const Center(child: Text("Hey there")),
-              )
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+                decoration:BoxDecoration(color: currentColor),
+                child: Center(
+                    child: Stack(
+                      children: <Widget>[
+                        Text(
+                          text,
+                          style: textStyle.copyWith(foreground: textBorderPaint),
+                        ),
+                        Text(
+                          text,
+                          style: textStyle
+                        ),
+                      ],
+                    )
+                ),
+              ),
             )
         )
     );
